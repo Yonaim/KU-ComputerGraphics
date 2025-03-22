@@ -14,12 +14,4 @@ class Ray
 	~Ray();
 };
 
-Ray::Ray(/* args */)
-{
-}
-
-Ray::~Ray()
-{
-}
-
 #endif

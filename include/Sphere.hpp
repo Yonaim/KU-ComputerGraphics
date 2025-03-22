@@ -2,21 +2,18 @@
 #define SPHERE_HPP
 
 #include <Surface.hpp>
+#include <glm/glm.hpp>
 
-class Sphere
+class Sphere : public Surface
 {
   private:
+	float radius;
+
   public:
-	Sphere(/* args */);
+	Sphere();
+	Sphere(glm::vec3 pos, float radius);
 	~Sphere();
+	void setPosition(glm::vec3 pos);
 };
-
-Sphere::Sphere(/* args */)
-{
-}
-
-Sphere::~Sphere()
-{
-}
 
 #endif

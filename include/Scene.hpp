@@ -10,19 +10,15 @@ class Scene
 {
   private:
 	std::vector<Surface> surfaces;
-	Camera camera;
+	Camera               camera;
 
   public:
-	Scene(/* args */);
+	Scene();
 	~Scene();
+
+	void addSurface(const Surface &surface);
+	void setCameraEye(glm::vec3 eye);
+	void setCameraDirection(glm::vec3 right, glm::vec3 up, glm::vec3 forward);
 };
-
-Scene::Scene(/* args */)
-{
-}
-
-Scene::~Scene()
-{
-}
 
 #endif
