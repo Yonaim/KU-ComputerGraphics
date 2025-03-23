@@ -10,7 +10,8 @@ class Ray
 	glm::vec3 dir;
 
   public:
-	Ray(/* args */);
+	Ray();
+	Ray(glm::vec3 origin, glm::vec3 dir);
 	~Ray();
 };
 

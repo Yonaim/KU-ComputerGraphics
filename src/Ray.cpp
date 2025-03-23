@@ -1,6 +1,10 @@
 #include "Ray.hpp"
 
-Ray::Ray(/* args */)
+Ray::Ray()
+{
+}
+
+Ray::Ray(glm::vec3 origin, glm::vec3 dir) : origin(origin), dir(dir)
 {
 }
 
