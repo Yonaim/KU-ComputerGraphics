@@ -129,7 +129,7 @@ void renderFrameLoop(Renderer &renderer, GLFWwindow *window)
 int main()
 {
 	Renderer    renderer;
-	GLFWwindow *window;
+	GLFWwindow *window = NULL;
 
 	initScene(renderer.scene);
 	initGLFW(&window);
