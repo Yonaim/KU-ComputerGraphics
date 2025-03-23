@@ -32,3 +32,22 @@ void Camera::setDirection(glm::vec3 right, glm::vec3 up, glm::vec3 forward)
 		std::cerr << "The camera direction vectors are not orgthogonal"
 				  << std::endl;
 }
+
+void Camera::setDistance(float distance)
+{
+	this->distance = distance;
+}
+
+void Camera::setImagePlane(float left, float right, float top, float bottom)
+{
+	this->imgPlane.setCoordinates(left, right, top, bottom);
+}
+
+// camera space to world space
+glm::vec3 Camera::uvToWorld(glm::vec2 uv) const
+{
+	const glm::vec3 img_plane_center = eye - (forward * forward);
+
+	return (img_plane_center + (uv.x * right) + (uv.y * up));
+}
+
