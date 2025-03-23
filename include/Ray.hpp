@@ -13,6 +13,9 @@ class Ray
 	Ray();
 	Ray(glm::vec3 origin, glm::vec3 dir);
 	~Ray();
+	glm::vec3 getDirection() const;
+	glm::vec3 getOrigin() const;
+	glm::vec3 pointAt(float t) const;
 };
 
 #endif
