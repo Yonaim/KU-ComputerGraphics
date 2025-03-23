@@ -51,3 +51,18 @@ glm::vec3 Camera::uvToWorld(glm::vec2 uv) const
 	return (img_plane_center + (uv.x * right) + (uv.y * up));
 }
 
+/*
+	Generating eye rays—perspective
+	- direction: s - eye
+	- s: screen point
+	- In camera spcae, s = (u, v, –d)
+	- In world space, s = (image_plane_center + (u * right) + (v * up)
+*/
+Ray Camera::getRay(int ix, int iy) const
+{
+	const glm::vec2 uv  = this->imgPlane.pixelToUV(ix, iy);
+	const glm::vec3 s   = uvToWorld(uv);
+	const Ray       ray = Ray(this->eye, glm::vec3(s - this->eye));
+
+	return (ray);
+}
