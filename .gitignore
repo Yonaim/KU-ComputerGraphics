@@ -3,3 +3,5 @@ reference
 *.o
 .vscode
 obj
+cg_code
+.DS_Store
