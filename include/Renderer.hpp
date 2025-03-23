@@ -23,6 +23,7 @@ class Renderer
 
 	Renderer();
 	~Renderer();
+	void setupTexture();
 	void rayTrace();
 };
 

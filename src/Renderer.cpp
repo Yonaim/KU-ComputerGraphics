@@ -7,7 +7,16 @@
 Renderer::Renderer()
 {
 	memset(output, 0, SCR_WIDTH * SCR_HEIGHT * 3);
+	this->textureID = 0;
+}
 
+Renderer::~Renderer()
+{
+	glDeleteTextures(1, &textureID);
+}
+
+void Renderer::setupTexture()
+{
 	glGenTextures(1, &textureID);
 	glBindTexture(GL_TEXTURE_2D, textureID);
 
@@ -16,11 +25,6 @@ Renderer::Renderer()
 
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCR_WIDTH, SCR_HEIGHT, 0, GL_RGB,
 				 GL_UNSIGNED_BYTE, output);
-}
-
-Renderer::~Renderer()
-{
-	glDeleteTextures(1, &textureID);
 }
 
 /*

@@ -135,6 +135,7 @@ int main()
 	initGLFW(&window);
 	if (window == NULL)
 		return (1);
+	renderer.setupTexture();
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
