@@ -1,13 +1,17 @@
 #ifndef RENDERER_HPP
 #define RENDERER_HPP
 
+#ifdef __APPLE__
+#include <OpenGL/gl.h>
+#else
+#include <Windows.h>
+#include <GL/glew.h>
+#include <GL/GL.h>
+#include <GL/freeglut.h>
+#endif
+
 #include "Scene.hpp"
 #include "settings.h"
-#ifdef __APPLE__
-#include <OpenGL/glu.h>
-#else
-#include <GL/glu.h>
-#endif
 
 class Renderer
 {

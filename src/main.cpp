@@ -1,17 +1,18 @@
-#include "Plane.hpp"
-#include "Renderer.hpp"
-#include "Scene.hpp"
-#include "Sphere.hpp"
-#include "settings.h"
-
 #ifdef __APPLE__
 #include <OpenGL/gl.h>
 #else
-#include <GL/glu.h>
+#include <Windows.h>
 #endif
 
-#include <GLFW/glfw3.h>
 #include <iostream>
+#include <GL/glew.h>
+
+#ifdef __APPLE__
+#include <GL/gl.h>
+#else
+#include <GL/GL.h>
+#include <GL/freeglut.h>
+#endif
 
 #define GLFW_INCLUDE_GLU
 #define GLFW_DLL
@@ -23,6 +24,12 @@
 #include <glm/gtc/constants.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/string_cast.hpp>
+
+#include "settings.h"
+#include "Renderer.hpp"
+#include "Scene.hpp"
+#include "Sphere.hpp"
+#include "Plane.hpp"
 
 void initScene(Scene &scene)
 {
