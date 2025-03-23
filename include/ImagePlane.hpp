@@ -1,7 +1,7 @@
 #ifndef IMAGEPLANE_HPP
 #define IMAGEPLANE_HPP
 
-#include "settings.hpp"
+#include "settings.h"
 #include <glm/glm.hpp>
 
 class ImagePlane

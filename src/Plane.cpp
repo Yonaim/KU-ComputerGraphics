@@ -1,5 +1,5 @@
 #include "Plane.hpp"
-#include "constant.hpp"
+#include "constant.h"
 #include <cmath>
 #include <glm/glm.hpp>
 

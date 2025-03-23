@@ -1,5 +1,5 @@
-#ifndef HITRESULT_HPP
-#define HITRESULT_HPP
+#ifndef HITRESULT_H
+#define HITRESULT_H
 
 #include <glm/glm.hpp>
 class Surface;

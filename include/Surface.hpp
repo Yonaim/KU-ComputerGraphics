@@ -3,7 +3,7 @@
 
 #include "Material.hpp"
 #include "Ray.hpp"
-#include "hitResult.hpp"
+#include "hitResult.h"
 #include <glm/glm.hpp>
 
 class Surface

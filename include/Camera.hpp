@@ -3,8 +3,8 @@
 
 #include "ImagePlane.hpp"
 #include "Ray.hpp"
-#include "constant.hpp"
-#include "settings.hpp"
+#include "constant.h"
+#include "settings.h"
 #include <glm/glm.hpp>
 #include <iostream>
 

@@ -11,8 +11,8 @@ black.
 */
 
 #include "Scene.hpp"
-#include "constant.hpp"
-#include "settings.hpp"
+#include "constant.h"
+#include "settings.h"
 
 /*
 	1. 레이 생성 (카메라 위치 - 현 픽셀 중심 좌표)

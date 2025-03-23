@@ -1,4 +1,4 @@
-#include "graphics.hpp"
+#include "graphics.h"
 
 void init_scene(Scene &scene)
 {

@@ -1,5 +1,5 @@
-#ifndef CONSTANT_HPP
-#define CONSTANT_HPP
+#ifndef CONSTANT_H
+#define CONSTANT_H
 
 // allowed error range
 #define EPSILON 1e-6f
