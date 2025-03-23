@@ -19,9 +19,11 @@ void initScene(Scene &scene)
 	– orientation given by u = (1, 0, 0), v = (0, 1, 0) and w = (0, 0, 1).
 	– (Note that the camera is looking along the direction −w.)
 	– Assume that the viewing region on the image plane is defined by
-	l = −0.1, r = 0.1, b = −0.1, t = 0.1, and d = 0.1.
+		l = −0.1, r = 0.1, b = −0.1, t = 0.1, and d = 0.1.
 	*/
+	scene.setCameraImagePlane(-0.1, 0.1, -0.1, 0.1);
 	scene.setCameraEye(glm::vec3(0, 0, 0));
+	scene.setCameraDistance(0.1);
 	scene.setCameraDirection(glm::vec3(1, 0, 0), glm::vec3(0, 1, 0),
 							 glm::vec3(0, 0, 1));
 
@@ -41,7 +43,7 @@ void initScene(Scene &scene)
 int main()
 {
 	Scene scene;
-	
+
 	initScene(scene);
 
 	// glfw: initialize and configure
