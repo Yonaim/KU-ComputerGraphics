@@ -13,13 +13,24 @@ ImagePlane::~ImagePlane()
 {
 }
 
-/*
-U: horizontal, V: vertical
-*/
-glm::vec2 ImagePlane::pixelToUV(int ix, int iy)
+void ImagePlane::setCoordinates(float left, float right, float top,
+								float bottom)
 {
-	// SCR_WIDTH = horizontal pixel count
-	// SCR_HEIGHT = vertical pixel count
+	this->left   = left;
+	this->right  = right;
+	this->top    = top;
+	this->bottom = bottom;
+}
+
+// screen space to camera space
+glm::vec2 ImagePlane::pixelToUV(int ix, int iy) const
+{
+	/*
+		U: horizontal
+		V: vertical
+		SCR_WIDTH: count of horizontal pixels
+		SCR_HEIGHT: count of vertical pixels
+	*/
 	const float image_plane_width  = right - left;
 	const float image_plane_height = top - bottom;
 	const float u = left + (image_plane_width) * ((ix + 0.5) / SCR_WIDTH);

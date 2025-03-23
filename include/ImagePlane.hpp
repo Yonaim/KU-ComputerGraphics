@@ -16,7 +16,8 @@ class ImagePlane
 	ImagePlane();
 	ImagePlane(float left, float right, float top, float bottom);
 	~ImagePlane();
-	glm::vec2 pixelToUV(int ix, int iy);
+	void      setCoordinates(float left, float right, float top, float bottom);
+	glm::vec2 pixelToUV(int ix, int iy) const;
 };
 
 #endif
