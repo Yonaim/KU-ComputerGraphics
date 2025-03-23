@@ -10,7 +10,7 @@ class Surface
 {
   protected:
 	glm::vec3 pos;
-	Material  material; // 추후 사용
+	Material  material;
 
 	virtual bool intersectAnalytic(Ray &ray, hitResult *hit, float tMin,
 								   float tMax) const;
