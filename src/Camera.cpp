@@ -20,9 +20,9 @@ void Camera::setDirection(glm::vec3 right, glm::vec3 up, glm::vec3 forward)
 	const glm::vec3 crossUpForward    = glm::cross(up, forward);
 
 	// check orthogonal
-	if (glm::length(crossRightUp) < EPSILON
-		&& glm::length(crossRightForward) < EPSILON
-		&& glm::length(crossUpForward) < EPSILON)
+	if (glm::length(crossRightUp) < (1 + EPSILON)
+		&& glm::length(crossRightForward) < (1 + EPSILON)
+		&& glm::length(crossUpForward) < (1 + EPSILON))
 	{
 		this->right   = right;
 		this->up      = up;
