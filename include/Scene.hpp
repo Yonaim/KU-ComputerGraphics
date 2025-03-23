@@ -21,6 +21,7 @@ class Scene
 	void setCameraEye(glm::vec3 eye);
 	void setCameraDistance(float distance);
 	void setCameraDirection(glm::vec3 right, glm::vec3 up, glm::vec3 forward);
+	glm::vec3 trace(Ray &ray, float tMin, float tMax) const;
 };
 
 #endif
