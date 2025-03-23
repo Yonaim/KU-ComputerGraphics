@@ -13,6 +13,11 @@ void Scene::addSurface(const Surface &surface)
 	this->surfaces.push_back(surface);
 }
 
+Camera &Scene::getCamera()
+{
+	return (this->camera);
+}
+
 void Scene::setCameraImagePlane(float left, float right, float top,
 								float bottom)
 {
