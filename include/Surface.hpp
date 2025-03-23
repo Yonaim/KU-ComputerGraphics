@@ -2,6 +2,8 @@
 #define SURFACE_HPP
 
 #include "Material.hpp"
+#include "Ray.hpp"
+#include "hitResult.hpp"
 #include <glm/glm.hpp>
 
 class Surface
@@ -14,6 +16,7 @@ class Surface
 	Surface(/* args */);
 	Surface(glm::vec3 pos);
 	~Surface();
+	hitResult intersect(Ray &ray, float tMin, float tMax) const;
 };
 
 #endif
