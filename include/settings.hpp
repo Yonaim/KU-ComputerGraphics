@@ -5,7 +5,4 @@
 #define SCR_WIDTH	512
 #define SCR_HEIGHT	512
 
-// allowed error range
-#define EPSILON		1e-6f
-
 #endif
