@@ -1,6 +1,6 @@
 CXX := g++
 # CXXFLAGS := -std=c++17 -Wall -Wextra -O2 -Iinclude
-CXXFLAGS := -std=c++17 -O2 -Iinclude
+CXXFLAGS := -std=c++17 -O2 -Iinclude -DGL_SILENCE_DEPRECATION
 CPPFLAGS = -I./include
 LDFLAGS := -L/opt/homebrew/lib -lglfw -L./lib -lglad -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo
 

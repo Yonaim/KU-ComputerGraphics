@@ -5,8 +5,8 @@
 #include "Scene.hpp"
 #include "Sphere.hpp"
 #include "settings.h"
-#include <GLFW/glfw3.h>
 #include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include <iostream>
 
 // callback functions
