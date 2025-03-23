@@ -1,14 +1,17 @@
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtx/string_cast.hpp>
+#include <glm/gtx/dual_quaternion.hpp>
+
 #ifdef __APPLE__
 #include <OpenGL/gl.h>
 #else
 #include <Windows.h>
+#include <GL/glew.h>
 #endif
 
 #include <iostream>
-#include <GL/glew.h>
 
 #ifdef __APPLE__
-#include <GL/gl.h>
 #else
 #include <GL/GL.h>
 #include <GL/freeglut.h>
