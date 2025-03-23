@@ -8,15 +8,19 @@
 
 class Surface
 {
-  private:
+  protected:
 	glm::vec3 pos;
 	Material  material; // 추후 사용
+
+	virtual bool intersectAnalytic(Ray &ray, hitResult *hit, float tMin,
+								   float tMax) const;
 
   public:
 	Surface(/* args */);
 	Surface(glm::vec3 pos);
 	~Surface();
-	hitResult intersect(Ray &ray, float tMin, float tMax) const;
+	void              setPosition(glm::vec3 pos);
+	virtual hitResult intersect(Ray &ray, float tMin, float tMax) const;
 };
 
 #endif
