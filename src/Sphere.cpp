@@ -46,13 +46,21 @@ bool Sphere::intersect(hitResult *hit, Ray &ray, float tMin, float tMax) const
 	const float t2 = (-d_dot_p + sqrtDisc) / d_dot_d;
 
 	if (t1 >= tMin && t1 <= tMax)
-		hit->t = t1;
+	{
+		hit->t       = t1;
+		hit->surface = (Surface *)this;
+		// hit->point = ray.pointAt(hit->t);
+		return (true);
+	}
 	else if (t2 >= tMin && t2 <= tMax)
-		hit->t = t2;
+	{
+		hit->t       = t2;
+		hit->surface = (Surface *)this;
+		// hit->point = ray.pointAt(hit->t);
+		return (true);
+	}
 	else
+	{
 		return (false);
-
-	hit->surface = (Surface *)this;
-	// hit->point = ray.pointAt(hit.t);
-	return (true);
+	}
 }
