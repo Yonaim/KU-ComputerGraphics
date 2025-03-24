@@ -13,15 +13,15 @@ Sphere::~Sphere()
 {
 }
 
-bool Sphere::intersectAnalytic(Ray &ray, hitResult *hit, float tMin,
-							   float tMax) const
+bool Sphere::intersect(hitResult *hit, Ray &ray, float tMin, float tMax) const
 {
 	/*
 		구의 방정식: (P - C) * (P - C) = r^2
 		Ray의 방정식: R(t) = O + t * d
 
 		((O + t * d) - C) · ((O + t * d) - C) = r^2
-		-> t^2 * (d · d) + 2 * t * (d · (O - C)) + ((O - C) · (O - C) - r^2) = 0
+		-> t^2 * (d · d) + 2 * t * (d · (O - C)) + ((O - C) · (O - C) - r^2)
+		= 0
 		-> t = [-(p·d) ± √((p·d)^2 - (d·d)(p·p - r^2))] / (d·d)
 			(p = O - C)
 	*/
@@ -51,5 +51,8 @@ bool Sphere::intersectAnalytic(Ray &ray, hitResult *hit, float tMin,
 		hit->t = t2;
 	else
 		return (false);
+
+	hit->surface = (Surface *)this;
+	// hit->point = ray.pointAt(hit.t);
 	return (true);
 }
