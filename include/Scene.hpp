@@ -16,7 +16,7 @@ class Scene
 	Scene();
 	~Scene();
 
-	void    addSurface(const Surface &surface);
+	void    addSurface(Surface *surface);
 	Camera &getCamera();
 	void setCameraImagePlane(float left, float right, float top, float bottom);
 	void setCameraEye(glm::vec3 eye);

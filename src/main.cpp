@@ -58,10 +58,10 @@ void initScene(Scene &scene)
 	 – Sphere S2, with center at (0, 0, −7) and radius 2.
 	 – Sphere S3, with center at (4, 0, −7) and radius 1.
 	*/
-	scene.addSurface(Plane(glm::vec3(0, -2, 0), glm::vec3(0, 1, 0)));
-	scene.addSurface(Sphere(glm::vec3(-4, 0, -7), 1));
-	scene.addSurface(Sphere(glm::vec3(0, 0, -7), 2));
-	scene.addSurface(Sphere(glm::vec3(4, 0, -7), 1));
+	scene.addSurface(new Plane(glm::vec3(0, -2, 0), glm::vec3(0, 1, 0)));
+	scene.addSurface(new Sphere(glm::vec3(-4, 0, -7), 1));
+	scene.addSurface(new Sphere(glm::vec3(0, 0, -7), 2));
+	scene.addSurface(new Sphere(glm::vec3(4, 0, -7), 1));
 }
 
 static void keyCallback(GLFWwindow *window, int key, int scancode, int action,
