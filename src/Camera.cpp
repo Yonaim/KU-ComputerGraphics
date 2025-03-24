@@ -46,8 +46,7 @@ void Camera::setImagePlane(float left, float right, float top, float bottom)
 // camera space to world space
 glm::vec3 Camera::uvToWorld(glm::vec2 uv) const
 {
-	const glm::vec3 img_plane_center = eye - (forward * forward);
-
+	const glm::vec3 img_plane_center = eye - (forward * distance);
 	return (img_plane_center + (uv.x * right) + (uv.y * up));
 }
 
