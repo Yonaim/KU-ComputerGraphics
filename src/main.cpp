@@ -7,7 +7,8 @@ void renderFrameLoop(Renderer &renderer, GLFWwindow *window);
 void init_scene(Scene &scene);
 GLFWwindow *init_glfw();
 
-	int main()
+//TODO: 결과물 스케일 문제 해결
+int main()
 {
 	Renderer    renderer;
 	GLFWwindow *window = NULL;
@@ -18,8 +19,6 @@ GLFWwindow *init_glfw();
 	window = init_glfw();
 	if (window == NULL)
 		return (1);
-	renderer.setupTexture();
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
 	// loop
 	renderFrameLoop(renderer, window);
