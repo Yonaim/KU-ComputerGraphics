@@ -44,12 +44,11 @@ bool Plane::intersect(hitResult *hit, Ray &ray, float tMin, float tMax) const
 
 	if (fabs(denom) > EPSILON)
 	{
-		// TODO: 부호 확인
-		numer = glm::dot(normal, ray.getOrigin() - pos);
+		numer = -glm::dot(normal, ray.getOrigin() - pos);
 		t     = numer / denom;
 		if (tMin < t && t < tMax)
 		{
-			hit->t = t;
+			hit->t       = t;
 			hit->surface = (Surface *)this;
 			// hit->point = ray.pointAt(t);
 			return (true);
