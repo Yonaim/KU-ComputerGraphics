@@ -1,14 +1,38 @@
-#include "Plane.hpp"
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtx/string_cast.hpp>
+#include <glm/gtx/dual_quaternion.hpp>
+
+#ifdef __APPLE__
+#include <OpenGL/gl.h>
+#else
+#include <Windows.h>
+#include <GL/glew.h>
+#endif
+
+#include <iostream>
+
+#ifdef __APPLE__
+#else
+#include <GL/GL.h>
+#include <GL/freeglut.h>
+#endif
+
+#define GLFW_INCLUDE_GLU
+#define GLFW_DLL
+#include <GLFW/glfw3.h>
+#include <vector>
+
+#define GLM_SWIZZLE
+#include <glm/glm.hpp>
+#include <glm/gtc/constants.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/string_cast.hpp>
+
+#include "settings.h"
 #include "Renderer.hpp"
 #include "Scene.hpp"
 #include "Sphere.hpp"
-#include "settings.h"
-#include <GLFW/glfw3.h>
-#include <OpenGL/OpenGL.h>
-#include <OpenGL/gl.h>
-#include <OpenGL/gl3.h>
-#include <OpenGL/glu.h>
-#include <iostream>
+#include "Plane.hpp"
 
 void initScene(Scene &scene)
 {
@@ -78,23 +102,22 @@ void renderFrameLoop(Renderer &renderer, GLFWwindow *window)
 
 		if (needRecompute)
 		{
-			renderer.rayTrace(); // 이미 텍스처 업데이트 포함
+			renderer.rayTrace();
 			needRecompute = false;
 		}
 
-		// 텍스처를 화면에 렌더링
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, renderer.textureID);
 
 		glBegin(GL_QUADS);
 		glTexCoord2f(0.0f, 0.0f);
-		glVertex2f(-1.0f, -1.0f); // 좌하단
+		glVertex2f(-1.0f, -1.0f);
 		glTexCoord2f(1.0f, 0.0f);
-		glVertex2f(1.0f, -1.0f); // 우하단
+		glVertex2f(1.0f, -1.0f);
 		glTexCoord2f(1.0f, 1.0f);
-		glVertex2f(1.0f, 1.0f); // 우상단
+		glVertex2f(1.0f, 1.0f);
 		glTexCoord2f(0.0f, 1.0f);
-		glVertex2f(-1.0f, 1.0f); // 좌상단
+		glVertex2f(-1.0f, 1.0f);
 		glEnd();
 
 		glDisable(GL_TEXTURE_2D);
@@ -106,12 +129,13 @@ void renderFrameLoop(Renderer &renderer, GLFWwindow *window)
 int main()
 {
 	Renderer    renderer;
-	GLFWwindow *window;
+	GLFWwindow *window = NULL;
 
 	initScene(renderer.scene);
 	initGLFW(&window);
 	if (window == NULL)
 		return (1);
+	renderer.setupTexture();
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 

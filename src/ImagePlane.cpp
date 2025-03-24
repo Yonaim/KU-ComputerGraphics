@@ -1,6 +1,6 @@
 #include "ImagePlane.hpp"
 
-ImagePlane::ImagePlane()
+ImagePlane::ImagePlane() : left(0), right(0), top(0), bottom(0)
 {
 }
 
@@ -33,8 +33,10 @@ glm::vec2 ImagePlane::pixelToUV(int ix, int iy) const
 	*/
 	const float image_plane_width  = right - left;
 	const float image_plane_height = top - bottom;
-	const float u = left + (image_plane_width) * ((ix + 0.5) / SCR_WIDTH);
-	const float v = right + (image_plane_height) * ((iy + 0.5) / SCR_HEIGHT);
+	const float u
+		= float(left + (image_plane_width) * ((ix + 0.5) / SCR_WIDTH));
+	const float v
+		= float(right + (image_plane_height) * ((iy + 0.5) / SCR_HEIGHT));
 
 	return (glm::vec2(u, v));
 }

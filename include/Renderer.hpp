@@ -1,12 +1,21 @@
 #ifndef RENDERER_HPP
 #define RENDERER_HPP
 
-#include "graphics.h"
+#ifdef __APPLE__
+#include <OpenGL/gl.h>
+#else
+#include <Windows.h>
+#include <GL/glew.h>
+#include <GL/GL.h>
+#include <GL/freeglut.h>
+#endif
+
+#include "Scene.hpp"
+#include "settings.h"
 
 class Renderer
 {
   private:
-	/* data */
   public:
 	Scene         scene;
 	unsigned char output[SCR_WIDTH * SCR_HEIGHT * 3]; // RGB
@@ -14,6 +23,7 @@ class Renderer
 
 	Renderer();
 	~Renderer();
+	void setupTexture();
 	void rayTrace();
 };
 

@@ -7,23 +7,24 @@
 Renderer::Renderer()
 {
 	memset(output, 0, SCR_WIDTH * SCR_HEIGHT * 3);
-
-	// 텍스처 생성
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_2D, textureID);
-
-	// 텍스처 파라미터 설정
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-	// 초기 텍스처 데이터 설정
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCR_WIDTH, SCR_HEIGHT, 0, GL_RGB,
-				 GL_UNSIGNED_BYTE, output);
+	this->textureID = 0;
 }
 
 Renderer::~Renderer()
 {
 	glDeleteTextures(1, &textureID);
+}
+
+void Renderer::setupTexture()
+{
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCR_WIDTH, SCR_HEIGHT, 0, GL_RGB,
+				 GL_UNSIGNED_BYTE, output);
 }
 
 /*
@@ -36,12 +37,6 @@ the scene
 the pixel’s color to white; otherwise, set the pixel’s color to
 black.
 – See the Figure for a reference image.
-*/
-
-/*
-	1. 레이 생성 (카메라 위치 - 현 픽셀 중심 좌표)
-	2. intersection 검사, 가장 가까운 t 찾기
-	2. 검사 결과에 따라 흰색 혹은 검은색으로
 */
 void Renderer::rayTrace()
 {
