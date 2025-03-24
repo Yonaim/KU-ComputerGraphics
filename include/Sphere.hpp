@@ -12,9 +12,9 @@ class Sphere : public Surface
   public:
 	Sphere();
 	Sphere(glm::vec3 pos, float radius);
-	~Sphere();
-	virtual bool intersectAnalytic(Ray &ray, hitResult *hit, float tMin,
-								   float tMax) const;
+	virtual ~Sphere();
+	virtual bool intersect(hitRecord *hit, Ray &ray, float tMin,
+						   float tMax) const override;
 };
 
 #endif

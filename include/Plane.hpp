@@ -12,10 +12,10 @@ class Plane : public Surface
   public:
 	Plane();
 	Plane(glm::vec3 pos, glm::vec3 normal);
-	~Plane();
+	virtual ~Plane();
 	void         setNormal(glm::vec3 normal);
-	virtual bool intersectAnalytic(Ray &ray, hitResult *hit, float tMin,
-								   float tMax) const;
+	virtual bool intersect(hitRecord *hit, Ray &ray, float tMin,
+						   float tMax) const override;
 };
 
 #endif

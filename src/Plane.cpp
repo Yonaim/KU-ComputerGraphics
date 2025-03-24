@@ -1,5 +1,6 @@
 #include "Plane.hpp"
 #include "constant.h"
+#include "hitRecord.h"
 #include <cmath>
 #include <glm/glm.hpp>
 
@@ -23,8 +24,7 @@ void Plane::setNormal(glm::vec3 normal)
 
 // 평면의 식에 ray 대입
 // 만약 n * d = 0일시 ray가 평면과 평행 혹은 평면에 포함
-bool Plane::intersectAnalytic(Ray &ray, hitResult *hit, float tMin,
-							  float tMax) const
+bool Plane::intersect(hitRecord *hit, Ray &ray, float tMin, float tMax) const
 {
 	/*
 		평면의 방정식: n * (P - P0) = 0
@@ -44,12 +44,13 @@ bool Plane::intersectAnalytic(Ray &ray, hitResult *hit, float tMin,
 
 	if (fabs(denom) > EPSILON)
 	{
-		// TODO: 부호 확인
-		numer = glm::dot(normal, ray.getOrigin() - pos);
+		numer = -glm::dot(normal, ray.getOrigin() - pos);
 		t     = numer / denom;
 		if (tMin < t && t < tMax)
 		{
-			hit->t = t;
+			hit->t       = t;
+			hit->surface = (Surface *)this;
+			// hit->point = ray.pointAt(t);
 			return (true);
 		}
 	}

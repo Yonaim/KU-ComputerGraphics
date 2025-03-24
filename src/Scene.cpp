@@ -8,7 +8,7 @@ Scene::~Scene()
 {
 }
 
-void Scene::addSurface(const Surface &surface)
+void Scene::addSurface(Surface *surface)
 {
 	this->surfaces.push_back(surface);
 }
@@ -42,19 +42,30 @@ void Scene::setCameraDirection(glm::vec3 right, glm::vec3 up, glm::vec3 forward)
 // find the hitted surface with smallest t
 glm::vec3 Scene::trace(Ray &ray, float tMin, float tMax) const
 {
-	std::vector<Surface>::const_iterator it = this->surfaces.begin();
-	hitResult                            nearest_hit;
+	std::vector<Surface *>::const_iterator it = this->surfaces.begin();
+	hitRecord                              hit_closest;
 
-	nearest_hit.surface = NULL;
-	nearest_hit.t       = tMax;
+	hit_closest.surface = NULL;
+	hit_closest.t       = tMax;
 	while (it < this->surfaces.end())
 	{
-		it->intersect(ray, tMin, nearest_hit.t);
+		hitRecord hit_curr;
+		bool      is_hit;
+		bool      any_hit = false;
+
+		hit_curr.surface = NULL;
+		hit_curr.t       = tMax;
+		is_hit = (*it)->intersect(&hit_curr, ray, tMin, hit_closest.t);
+		if (is_hit && hit_curr.t < hit_closest.t)
+		{
+			hit_closest = hit_curr;
+			any_hit     = true;
+		}
 		it++;
 	}
 
-	if (nearest_hit.surface != NULL)
-		return (glm::vec3(255, 255, 255));
+	if (hit_closest.surface != NULL)
+		return (glm::vec3(1.0f, 1.0f, 1.0f));
 	else
 		return (glm::vec3(0, 0, 0));
 }
