@@ -51,16 +51,12 @@ glm::vec3 Scene::trace(Ray &ray, float tMin, float tMax) const
 	{
 		hitRecord hit_curr;
 		bool      is_hit;
-		bool      any_hit = false;
 
 		hit_curr.surface = NULL;
 		hit_curr.t       = tMax;
 		is_hit = (*it)->intersect(&hit_curr, ray, tMin, hit_closest.t);
 		if (is_hit && hit_curr.t < hit_closest.t)
-		{
 			hit_closest = hit_curr;
-			any_hit     = true;
-		}
 		it++;
 	}
 
