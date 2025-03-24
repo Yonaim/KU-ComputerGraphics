@@ -43,13 +43,13 @@ void Scene::setCameraDirection(glm::vec3 right, glm::vec3 up, glm::vec3 forward)
 glm::vec3 Scene::trace(Ray &ray, float tMin, float tMax) const
 {
 	std::vector<Surface *>::const_iterator it = this->surfaces.begin();
-	hitResult                              hit_closest;
+	hitRecord                              hit_closest;
 
 	hit_closest.surface = NULL;
 	hit_closest.t       = tMax;
 	while (it < this->surfaces.end())
 	{
-		hitResult hit_curr;
+		hitRecord hit_curr;
 		bool      is_hit;
 		bool      any_hit = false;
 

@@ -13,7 +13,7 @@ Sphere::~Sphere()
 {
 }
 
-bool Sphere::intersect(hitResult *hit, Ray &ray, float tMin, float tMax) const
+bool Sphere::intersect(hitRecord *hit, Ray &ray, float tMin, float tMax) const
 {
 	/*
 		구의 방정식: (P - C) * (P - C) = r^2

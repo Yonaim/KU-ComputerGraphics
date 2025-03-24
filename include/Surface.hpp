@@ -3,7 +3,7 @@
 
 #include "Material.hpp"
 #include "Ray.hpp"
-#include "hitResult.h"
+#include "hitRecord.h"
 #include <glm/glm.hpp>
 
 class Surface
@@ -16,8 +16,9 @@ class Surface
 	Surface(/* args */);
 	Surface(glm::vec3 pos);
 	virtual ~Surface();
-	void              setPosition(glm::vec3 pos);
-	virtual bool intersect(hitResult *hit, Ray &ray, float tMin, float tMax) const;
+	void         setPosition(glm::vec3 pos);
+	virtual bool intersect(hitRecord *hit, Ray &ray, float tMin,
+						   float tMax) const;
 };
 
 #endif

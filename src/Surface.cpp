@@ -17,8 +17,7 @@ void Surface::setPosition(glm::vec3 pos)
 	this->pos = pos;
 }
 
-
-bool	Surface::intersect(hitResult *hit, Ray &ray, float tMin, float tMax) const
+bool Surface::intersect(hitRecord *hit, Ray &ray, float tMin, float tMax) const
 {
 	// virtual function
 	// each surface has a different equation

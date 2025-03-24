@@ -13,7 +13,7 @@ class Sphere : public Surface
 	Sphere();
 	Sphere(glm::vec3 pos, float radius);
 	virtual ~Sphere();
-	virtual bool intersect(hitResult *hit, Ray &ray, float tMin,
+	virtual bool intersect(hitRecord *hit, Ray &ray, float tMin,
 						   float tMax) const override;
 };
 
