@@ -136,49 +136,53 @@ GLFWwindow *initGLFW()
 
 void renderFrameLoop(Renderer &renderer, GLFWwindow *window)
 {
-	// Force initial update of texture data
-	glBindTexture(GL_TEXTURE_2D, renderer.textureID);
-	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, SCR_WIDTH, SCR_HEIGHT, GL_RGB,
-					GL_UNSIGNED_BYTE, renderer.output);
-
-	// Simple debug info
-	std::cout << "Starting render loop with texture ID: " << renderer.textureID
-			  << std::endl;
+	bool needRecompute = true;
 
 	while (!glfwWindowShouldClose(window))
 	{
-		// Clear the screen with a distinctive color to see if rendering works
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+		// 화면 클리어
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		// Skip ray tracing for now, just ensure something displays
+		// 레이트레이싱 실행
+		if (needRecompute)
+		{
+			std::cout << "Starting ray tracing..." << std::endl;
+			renderer.rayTrace();
+			needRecompute = false;
+			std::cout << "Ray tracing complete!" << std::endl;
 
-		// Try the simplest possible way to draw the texture
+			// 텍스처 업데이트
+			glBindTexture(GL_TEXTURE_2D, renderer.textureID);
+			glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, SCR_WIDTH, SCR_HEIGHT,
+							GL_RGB, GL_UNSIGNED_BYTE, renderer.output);
+		}
+
+		// 텍스처 바인딩
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, renderer.textureID);
 
-		// Draw a simple quad
+		// 전체 화면 쿼드 그리기
 		glBegin(GL_QUADS);
 		glTexCoord2f(0.0f, 0.0f);
-		glVertex2f(-0.5f, -0.5f);
+		glVertex2f(-1.0f, -1.0f);
 		glTexCoord2f(1.0f, 0.0f);
-		glVertex2f(0.5f, -0.5f);
+		glVertex2f(1.0f, -1.0f);
 		glTexCoord2f(1.0f, 1.0f);
-		glVertex2f(0.5f, 0.5f);
+		glVertex2f(1.0f, 1.0f);
 		glTexCoord2f(0.0f, 1.0f);
-		glVertex2f(-0.5f, 0.5f);
+		glVertex2f(-1.0f, 1.0f);
 		glEnd();
 
 		glDisable(GL_TEXTURE_2D);
 
-		// Check for errors
+		// 오류 체크
 		GLenum error = glGetError();
 		if (error != GL_NO_ERROR)
 		{
 			std::cout << "OpenGL error in render loop: " << error << std::endl;
 		}
 
-		// Swap buffers and poll events
+		// 버퍼 스왑 및 이벤트 폴링
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 	}
@@ -199,19 +203,12 @@ int main()
 
 	renderer.setupTexture();
 
-	// Force initial texture update with the checker pattern
-	glBindTexture(GL_TEXTURE_2D, renderer.textureID);
-	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, SCR_WIDTH, SCR_HEIGHT, GL_RGB,
-					GL_UNSIGNED_BYTE, renderer.output);
-
-	std::cout << "Texture initialized with checker pattern" << std::endl;
-
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-	// loop
+	// 렌더링 루프 시작
 	renderFrameLoop(renderer, window);
 
-	// terminate
+	// 종료
 	glfwDestroyWindow(window);
 	glfwTerminate();
 	return (0);

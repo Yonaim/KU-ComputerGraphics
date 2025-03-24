@@ -3,6 +3,7 @@
 #include "constant.h"
 #include "settings.h"
 #include <cstring>
+#include "debug.h"
 
 Renderer::Renderer()
 {
@@ -19,96 +20,35 @@ void Renderer::setupTexture()
 {
 	std::cout << "Setting up texture..." << std::endl;
 
-	// Create checkerboard pattern
+	// 체커보드 패턴 대신 검은색으로 초기화
 	for (int y = 0; y < SCR_HEIGHT; y++)
 	{
 		for (int x = 0; x < SCR_WIDTH; x++)
 		{
-			int idx = (y * SCR_WIDTH + x) * 3;
-			if ((x / 32 + y / 32) % 2)
-			{
-				output[idx]     = 255; // Red
-				output[idx + 1] = 0;
-				output[idx + 2] = 0;
-			}
-			else
-			{
-				output[idx]     = 0; // Cyan
-				output[idx + 1] = 255;
-				output[idx + 2] = 255;
-			}
+			int idx         = (y * SCR_WIDTH + x) * 3;
+			output[idx]     = 0; // 검은색으로 초기화
+			output[idx + 1] = 0;
+			output[idx + 2] = 0;
 		}
 	}
 
-	// Delete previous texture if it exists
-	if (textureID != 0)
-	{
-		glDeleteTextures(1, &textureID);
-	}
-
-	// Generate new texture
+	// 텍스처 생성
 	glGenTextures(1, &textureID);
 	std::cout << "Generated texture ID: " << textureID << std::endl;
 
-	// Check error after generation
-	GLenum error = glGetError();
-	if (error != GL_NO_ERROR)
-	{
-		std::cout << "OpenGL error after texture generation: " << error
-				  << std::endl;
-	}
-
-	// Bind texture
 	glBindTexture(GL_TEXTURE_2D, textureID);
-	error = glGetError();
-	if (error != GL_NO_ERROR)
-	{
-		std::cout << "OpenGL error after binding texture: " << error
-				  << std::endl;
-	}
 
-	// Set texture parameters one by one to find the issue
+	// 텍스처 파라미터 설정
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	error = glGetError();
-	if (error != GL_NO_ERROR)
-	{
-		std::cout << "OpenGL error after WRAP_S: " << error << std::endl;
-	}
-
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	error = glGetError();
-	if (error != GL_NO_ERROR)
-	{
-		std::cout << "OpenGL error after WRAP_T: " << error << std::endl;
-	}
-
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	error = glGetError();
-	if (error != GL_NO_ERROR)
-	{
-		std::cout << "OpenGL error after MIN_FILTER: " << error << std::endl;
-	}
-
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	error = glGetError();
-	if (error != GL_NO_ERROR)
-	{
-		std::cout << "OpenGL error after MAG_FILTER: " << error << std::endl;
-	}
 
-	// Initialize with data
+	// 빈 텍스처로 초기화
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCR_WIDTH, SCR_HEIGHT, 0, GL_RGB,
 				 GL_UNSIGNED_BYTE, output);
 
-	error = glGetError();
-	if (error != GL_NO_ERROR)
-	{
-		std::cout << "OpenGL error after texImage2D: " << error << std::endl;
-	}
-	else
-	{
-		std::cout << "Texture setup successful" << std::endl;
-	}
+	std::cout << "Texture setup successful" << std::endl;
 }
 
 /*
@@ -130,16 +70,19 @@ void Renderer::rayTrace()
 
 	for (int y = 0; y < SCR_HEIGHT; y++)
 	{
-		std::cout << "Processing line number " << y + 1 << "..." << std::endl;
+		// std::cout << "Processing line number " << y + 1 << "..." <<
+		// std::endl;
 		for (int x = 0; x < SCR_WIDTH; x++)
 		{
 			ray   = camera.getRay(x, y);
 			color = scene.trace(ray, 0, FLT_INF);
 
 			int idx         = (y * SCR_WIDTH + x) * 3;
-			output[idx]     = (unsigned char)color.x;
-			output[idx + 1] = (unsigned char)color.y;
-			output[idx + 2] = (unsigned char)color.z;
+			output[idx]     = (unsigned char)(color.x * 255.0f);
+			output[idx + 1] = (unsigned char)(color.y * 255.0f);
+			output[idx + 2] = (unsigned char)(color.z * 255.0f);
+			// printf("color: %d %d %d\n", output[idx], output[idx + 1],
+			// 	   output[idx + 2]);
 		}
 	}
 	glBindTexture(GL_TEXTURE_2D, textureID);
