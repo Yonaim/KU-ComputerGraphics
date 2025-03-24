@@ -12,15 +12,12 @@ class Surface
 	glm::vec3 pos;
 	Material  material;
 
-	virtual bool intersectAnalytic(Ray &ray, hitResult *hit, float tMin,
-								   float tMax) const;
-
   public:
 	Surface(/* args */);
 	Surface(glm::vec3 pos);
-	~Surface();
+	virtual ~Surface();
 	void              setPosition(glm::vec3 pos);
-	virtual hitResult intersect(Ray &ray, float tMin, float tMax) const;
+	virtual bool intersect(hitResult *hit, Ray &ray, float tMin, float tMax) const;
 };
 
 #endif
