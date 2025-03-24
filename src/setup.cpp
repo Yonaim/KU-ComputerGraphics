@@ -24,9 +24,9 @@ void init_scene(Scene &scene)
 	– Assume that the viewing region on the image plane is defined by
 		l = −0.1, r = 0.1, b = −0.1, t = 0.1, and d = 0.1.
 	*/
-	scene.setCameraImagePlane(-0.1, 0.1, -0.1, 0.1);
+	scene.setCameraImagePlane(-0.1f, 0.1f, -0.1f, 0.1f);
 	scene.setCameraEye(glm::vec3(0, 0, 0));
-	scene.setCameraDistance(0.1);
+	scene.setCameraDistance(0.1f);
 	scene.setCameraDirection(glm::vec3(1, 0, 0), glm::vec3(0, 1, 0),
 							 glm::vec3(0, 0, 1));
 
@@ -78,7 +78,7 @@ GLFWwindow *init_glfw()
 				  << std::endl;
 		glfwDestroyWindow(window);
 		glfwTerminate();
-		return;
+		return (NULL);
 	}
 #endif
 
