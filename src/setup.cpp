@@ -51,10 +51,15 @@ GLFWwindow *init_glfw()
 		return (NULL);
 	}
 
-	// glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_COMPAT_PROFILE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_ANY_PROFILE);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+
+	// ignore DPI scaling (1:1 mapping)
+	glfwWindowHint(GLFW_SCALE_TO_MONITOR, GLFW_FALSE);
+#ifdef __APPLE__
+	glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, GLFW_FALSE);
+#endif
 
 	// Create window and use
 	GLFWwindow *window = glfwCreateWindow(
