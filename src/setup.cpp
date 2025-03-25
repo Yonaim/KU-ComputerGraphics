@@ -4,6 +4,25 @@
 #include "Sphere.hpp"
 #include "Plane.hpp"
 
+static void print_resolution(GLFWwindow *window)
+{
+	int windowWidth, windowHeight;
+
+	glfwGetWindowSize(window, &windowWidth, &windowHeight);
+	std::cout << "Window Size: " << windowWidth << "x" << windowHeight
+			  << std::endl;
+
+	int framebufferWidth, framebufferHeight;
+	glfwGetFramebufferSize(window, &framebufferWidth, &framebufferHeight);
+	std::cout << "Framebuffer Size: " << framebufferWidth << "x"
+			  << framebufferHeight << std::endl;
+
+	float pixelRatioX = (float)framebufferWidth / windowWidth;
+	float pixelRatioY = (float)framebufferHeight / windowHeight;
+	std::cout << "Pixel Ratio: " << pixelRatioX << "x" << pixelRatioY
+			  << std::endl;
+}
+
 static void print_version()
 {
 	std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl;
@@ -88,6 +107,7 @@ GLFWwindow *init_glfw()
 #endif
 
 	print_version();
+	// print_resolution(window);
 
 	return (window);
 }
