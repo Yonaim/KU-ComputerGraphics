@@ -33,8 +33,9 @@ void Renderer::rayTrace()
 
 	for (int y = 0; y < SCR_HEIGHT; y++)
 	{
-		std::cout << "Processing line number " << y + 1 << "..." <<
-		std::endl;
+#ifdef PRINT_MSG_PROCESSING_LINE_NUMBER
+		std::cout << "Processing line number " << y + 1 << "..." << std::endl;
+#endif
 		for (int x = 0; x < SCR_WIDTH; x++)
 		{
 			ray   = camera.getRay(x, y);

@@ -3,6 +3,9 @@
 
 #include "gl_core.h"
 
+// option
+#define PRINT_MSG_PROCESSING_LINE_NUMBER true
+
 // the image resolution is 512 × 512
 #define SCR_WIDTH  512
 #define SCR_HEIGHT 512
