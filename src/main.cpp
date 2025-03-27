@@ -7,7 +7,7 @@ void renderFrameLoop(Renderer &renderer, GLFWwindow *window);
 void init_scene(Scene &scene);
 GLFWwindow *init_glfw();
 
-//TODO: 결과물 스케일 문제 해결
+// todo: 메모리 회수 작업
 int main()
 {
 	Renderer    renderer;
