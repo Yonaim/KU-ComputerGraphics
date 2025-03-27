@@ -18,25 +18,9 @@ Camera &Scene::getCamera()
 	return (this->camera);
 }
 
-void Scene::setCameraImagePlane(float left, float right, float top,
-								float bottom)
+std::vector<Surface *> &Scene::getSurfaces()
 {
-	this->camera.setImagePlane(left, right, top, bottom);
-}
-
-void Scene::setCameraEye(glm::vec3 eye)
-{
-	this->camera.setEye(eye);
-}
-
-void Scene::setCameraDistance(float distance)
-{
-	this->camera.setDistance(distance);
-}
-
-void Scene::setCameraDirection(glm::vec3 right, glm::vec3 up, glm::vec3 forward)
-{
-	this->camera.setDirection(right, up, forward);
+	return (this->surfaces);
 }
 
 // find the hitted surface with smallest t
