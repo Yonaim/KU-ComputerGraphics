@@ -32,7 +32,7 @@ static void print_version()
 	std::cout << "Renderer: " << glGetString(GL_RENDERER) << std::endl;
 }
 
-void init_scene(Scene &scene)
+void init_camera(Camera &camera)
 {
 	/*
 	Camera
@@ -43,23 +43,58 @@ void init_scene(Scene &scene)
 	– Assume that the viewing region on the image plane is defined by
 		l = −0.1, r = 0.1, b = −0.1, t = 0.1, and d = 0.1.
 	*/
-	scene.setCameraImagePlane(-0.1f, 0.1f, -0.1f, 0.1f);
-	scene.setCameraEye(glm::vec3(0, 0, 0));
-	scene.setCameraDistance(0.1f);
-	scene.setCameraDirection(glm::vec3(1, 0, 0), glm::vec3(0, 1, 0),
-							 glm::vec3(0, 0, 1));
+	camera.setEye(glm::vec3(0, 0, 0));
+	camera.setDirection(glm::vec3(1, 0, 0), glm::vec3(0, 1, 0),
+						glm::vec3(0, 0, 1));
+	camera.setDistance(0.1f);
+	camera.setImagePlane(-0.1f, 0.1f, -0.1f, 0.1f);
+}
+
+void init_surfaces(std::vector<Surface *> &surfaces)
+{
+	/*
+	Use the Phong model to shade the scene, with the following material
+	parameters for each object:
+	– Plane P : ka = (0.2, 0.2, 0.2), kd = (1, 1, 1), ks = (0, 0, 0), with
+		specular power 0.
+	– Sphere S1 : ka = (0.2, 0, 0), kd = (1, 0, 0), ks = (0,
+		0, 0), with specular power 0
+	– Sphere S2 : ka = (0, 0.2, 0), kd = (0, 0.5,
+		0), ks = (0.5, 0.5, 0.5), with specular power 32.
+	– Sphere S3 : ka = (0, 0,
+		0.2), kd = (0, 0, 1), ks = (0, 0, 0), with specular power 0.
+	*/
+	Material *m_p = new Material(glm::vec3(0.2, 0.2, 0.2), glm::vec3(1, 1, 1),
+								glm::vec3(0, 0, 0), 0);
+	Material *m_s1 = new Material(glm::vec3(0.2, 0, 0), glm::vec3(1, 0, 0),
+								glm::vec3(0, 0, 0), 0);
+	Material *m_s2 = new Material(glm::vec3(0, 0.2, 0), glm::vec3(0, 0.5, 0),
+								glm::vec3(0.5, 0.5, 0.5), 32);
+	Material *m_s3 = new Material(glm::vec3(0, 0, 0.2), glm::vec3(0, 0, 1),
+								glm::vec3(0, 0, 0), 0);
+	
+	Plane	*plane = new Plane(glm::vec3(0, -2, 0), m_p, glm::vec3(0, 1, 0));
+	Sphere	*sphere1 = new Sphere(glm::vec3(-4, 0, -7), m_s1, 1);
+	Sphere	*sphere2 = new Sphere(glm::vec3(0, 0, -7), m_s2, 2);
+	Sphere	*sphere3 = new Sphere(glm::vec3(4, 0, -7), m_s3, 1);
 
 	/*
-	 The scene consists of the following four objects:
-	 – Plane P , with equation y = −2.
-	 – Sphere S1, with center at (−4, 0, −7) and radius 1.
-	 – Sphere S2, with center at (0, 0, −7) and radius 2.
-	 – Sphere S3, with center at (4, 0, −7) and radius 1.
+	The scene consists of the following four objects:
+	– Plane P , with equation y = −2.
+	– Sphere S1, with center at (−4, 0, −7) and radius 1.
+	– Sphere S2, with center at (0, 0, −7) and radius 2.
+	– Sphere S3, with center at (4, 0, −7) and radius 1.
 	*/
-	scene.addSurface(new Plane(glm::vec3(0, -2, 0), glm::vec3(0, 1, 0)));
-	scene.addSurface(new Sphere(glm::vec3(-4, 0, -7), 1));
-	scene.addSurface(new Sphere(glm::vec3(0, 0, -7), 2));
-	scene.addSurface(new Sphere(glm::vec3(4, 0, -7), 1));
+	surfaces.push_back(plane);
+	surfaces.push_back(sphere1);
+	surfaces.push_back(sphere2);
+	surfaces.push_back(sphere3);
+}
+
+void init_scene(Scene &scene)
+{
+	init_camera(scene.getCamera());
+	init_surfaces(scene.getSurfaces());
 }
 
 GLFWwindow *init_glfw()
