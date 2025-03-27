@@ -5,21 +5,24 @@
 
 #include "Camera.hpp"
 #include "Surface.hpp"
+#include "PointLight.hpp"
 
 class Scene
 {
   private:
-	std::vector<Surface *> surfaces;
-	Camera                 camera;
+	Camera                    camera;
+	std::vector<Surface *>    surfaces;
+	std::vector<PointLight *> lights;
 
   public:
 	Scene();
 	~Scene();
 
-	void                    addSurface(Surface *surface);
-	Camera                 &getCamera();
-	std::vector<Surface *> &getSurfaces();
-	glm::vec3               trace(Ray &ray, float tMin, float tMax) const;
+	void                       addSurface(Surface *surface);
+	Camera                    &getCamera();
+	std::vector<Surface *>    &getSurfaces();
+	std::vector<PointLight *> &getLights();
+	glm::vec3                  trace(Ray &ray, float tMin, float tMax) const;
 };
 
 #endif

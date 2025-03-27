@@ -91,10 +91,22 @@ void init_surfaces(std::vector<Surface *> &surfaces)
 	surfaces.push_back(sphere3);
 }
 
+void init_point_lights(std::vector<PointLight *> &lights)
+{
+	/*
+	Assume a single point light source at (−4, 4, −3), emitting white light with
+	unit intensity and no falloff.
+	*/
+	PointLight *light
+		= new PointLight(glm::vec3(-4, 4, -3), glm::vec3(1, 1, 1), 1);
+	lights.push_back(light);
+}
+
 void init_scene(Scene &scene)
 {
 	init_camera(scene.getCamera());
 	init_surfaces(scene.getSurfaces());
+	init_point_lights(scene.getLights());
 }
 
 GLFWwindow *init_glfw()

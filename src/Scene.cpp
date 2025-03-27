@@ -23,6 +23,11 @@ std::vector<Surface *> &Scene::getSurfaces()
 	return (this->surfaces);
 }
 
+std::vector<PointLight *> &Scene::getLights()
+{
+	return (this->lights);
+}
+
 // find the hitted surface with smallest t
 glm::vec3 Scene::trace(Ray &ray, float tMin, float tMax) const
 {
