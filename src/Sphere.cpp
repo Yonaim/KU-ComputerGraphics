@@ -4,7 +4,8 @@ Sphere::Sphere()
 {
 }
 
-Sphere::Sphere(glm::vec3 pos, float radius) : Surface(pos)
+Sphere::Sphere(glm::vec3 pos, Material *material, float radius)
+	: Surface(pos, material)
 {
 	this->radius = radius;
 }

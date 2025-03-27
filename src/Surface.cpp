@@ -4,7 +4,8 @@ Surface::Surface(/* args */)
 {
 }
 
-Surface::Surface(glm::vec3 pos) : pos(pos)
+Surface::Surface(glm::vec3 pos, Material *material)
+	: pos(pos), material(material)
 {
 }
 

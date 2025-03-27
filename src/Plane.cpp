@@ -8,7 +8,8 @@ Plane::Plane()
 {
 }
 
-Plane::Plane(glm::vec3 pos, glm::vec3 normal) : Surface(pos)
+Plane::Plane(glm::vec3 pos, Material *material, glm::vec3 normal)
+	: Surface(pos, material)
 {
 	this->normal = glm::normalize(normal);
 }

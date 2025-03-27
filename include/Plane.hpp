@@ -3,6 +3,7 @@
 
 #include <Surface.hpp>
 #include <glm/glm.hpp>
+#include "Material.hpp"
 
 class Plane : public Surface
 {
@@ -11,7 +12,7 @@ class Plane : public Surface
 
   public:
 	Plane();
-	Plane(glm::vec3 pos, glm::vec3 normal);
+	Plane(glm::vec3 pos, Material *material, glm::vec3 normal);
 	virtual ~Plane();
 	void         setNormal(glm::vec3 normal);
 	virtual bool intersect(hitRecord *hit, Ray &ray, float tMin,
