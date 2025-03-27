@@ -17,13 +17,11 @@ class Renderer
 {
   private:
   public:
-	Scene         scene;
-	unsigned char output[SCR_WIDTH * SCR_HEIGHT * 3]; // RGB
-	GLuint        textureID;
+	Scene                      scene;
+	std::vector<unsigned char> output;
 
 	Renderer();
 	~Renderer();
-	void setupTexture();
 	void rayTrace();
 };
 

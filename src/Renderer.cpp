@@ -7,35 +7,11 @@
 
 Renderer::Renderer()
 {
-	memset(output, 0, SCR_WIDTH * SCR_HEIGHT * 3);
-	this->textureID = 0;
+	this->output.resize(SCR_WIDTH * SCR_HEIGHT * 3);
 }
 
 Renderer::~Renderer()
 {
-	glDeleteTextures(1, &textureID);
-}
-
-void Renderer::setupTexture()
-{
-	std::cout << "Setting up texture..." << std::endl;
-
-	memset(output, 0, sizeof(output));
-
-	glGenTextures(1, &textureID);
-	std::cout << "Generated texture ID: " << textureID << std::endl;
-
-	glBindTexture(GL_TEXTURE_2D, textureID);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, SCR_WIDTH, SCR_HEIGHT, 0, GL_RGB,
-				 GL_UNSIGNED_BYTE, output);
-
-	std::cout << "Texture setup successful" << std::endl;
 }
 
 /*
@@ -57,8 +33,9 @@ void Renderer::rayTrace()
 
 	for (int y = 0; y < SCR_HEIGHT; y++)
 	{
-		std::cout << "Processing line number " << y + 1 << "..." <<
-		std::endl;
+#ifdef PRINT_MSG_PROCESSING_LINE_NUMBER
+		std::cout << "Processing line number " << y + 1 << "..." << std::endl;
+#endif
 		for (int x = 0; x < SCR_WIDTH; x++)
 		{
 			ray   = camera.getRay(x, y);

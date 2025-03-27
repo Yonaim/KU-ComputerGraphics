@@ -10,11 +10,11 @@ class Surface
 {
   protected:
 	glm::vec3 pos;
-	Material  material;
+	Material  *material; // not a pointer now
 
   public:
 	Surface(/* args */);
-	Surface(glm::vec3 pos);
+	Surface(glm::vec3 pos, Material *material);
 	virtual ~Surface();
 	void         setPosition(glm::vec3 pos);
 	virtual bool intersect(hitRecord *hit, Ray &ray, float tMin,

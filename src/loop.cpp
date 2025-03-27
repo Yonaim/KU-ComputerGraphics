@@ -1,42 +1,28 @@
 #include "gl_core.h"
 #include "Renderer.hpp"
 
-static void clearFrame()
-{
-	glClear(GL_COLOR_BUFFER_BIT); // can be added another code later
-}
-
 static void computeRayTracing(Renderer &renderer)
 {
 	std::cout << "Starting ray tracing..." << std::endl;
 	renderer.rayTrace();
 	std::cout << "Ray tracing complete!" << std::endl;
-
-	glBindTexture(GL_TEXTURE_2D, renderer.textureID);
-	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, SCR_WIDTH, SCR_HEIGHT, GL_RGB,
-					GL_UNSIGNED_BYTE, renderer.output);
 }
 
-static void renderQuad(GLuint textureID)
+static void flipImageVertically(std::vector<unsigned char> &image, int width,
+								int height)
 {
-	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, textureID);
+	int                        rowSize = width * 3; // RGB
+	std::vector<unsigned char> temp(rowSize);
 
-	glBegin(GL_QUADS);
-	glTexCoord2f(0.0f, 1.0f);
-	glVertex2f(-1.0f, -1.0f);
+	for (int y = 0; y < height / 2; ++y)
+	{
+		int topIndex    = y * rowSize;
+		int bottomIndex = (height - 1 - y) * rowSize;
 
-	glTexCoord2f(1.0f, 1.0f);
-	glVertex2f(1.0f, -1.0f);
-
-	glTexCoord2f(1.0f, 0.0f);
-	glVertex2f(1.0f, 1.0f);
-
-	glTexCoord2f(0.0f, 0.0f);
-	glVertex2f(-1.0f, 1.0f);
-	glEnd();
-
-	glDisable(GL_TEXTURE_2D);
+		std::memcpy(temp.data(), &image[topIndex], rowSize);
+		std::memcpy(&image[topIndex], &image[bottomIndex], rowSize);
+		std::memcpy(&image[bottomIndex], temp.data(), rowSize);
+	}
 }
 
 void renderFrameLoop(Renderer &renderer, GLFWwindow *window)
@@ -45,23 +31,22 @@ void renderFrameLoop(Renderer &renderer, GLFWwindow *window)
 
 	while (!glfwWindowShouldClose(window))
 	{
-		clearFrame();
+		glClear(GL_COLOR_BUFFER_BIT);
+		glDrawPixels(SCR_WIDTH, SCR_HEIGHT, GL_RGB, GL_UNSIGNED_BYTE,
+					 &renderer.output[0]);
 
 		if (needRecompute)
 		{
 			computeRayTracing(renderer);
+			flipImageVertically(renderer.output, SCR_WIDTH, SCR_HEIGHT);
 			needRecompute = false;
-		}
-
-		renderQuad(renderer.textureID);
-
-		GLenum error = glGetError();
-		if (error != GL_NO_ERROR)
-		{
-			std::cout << "OpenGL error in render loop: " << error << std::endl;
 		}
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
+
+		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS
+			|| glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+			glfwSetWindowShouldClose(window, GL_TRUE);
 	}
 }
