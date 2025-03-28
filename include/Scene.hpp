@@ -13,12 +13,14 @@ class Scene
 	Camera                    camera;
 	std::vector<Surface *>    surfaces;
 	std::vector<PointLight *> lights;
+	glm::vec3                 background;
 
   public:
 	Scene();
 	~Scene();
 
 	void                       addSurface(Surface *surface);
+	void                       setBackgroundColor(glm::vec3 color);
 	Camera                    &getCamera();
 	std::vector<Surface *>    &getSurfaces();
 	std::vector<PointLight *> &getLights();

@@ -26,6 +26,11 @@ Scene::~Scene()
 	this->lights.clear();
 }
 
+void Scene::setBackgroundColor(glm::vec3 color)
+{
+	this->background = color;
+}
+
 void Scene::addSurface(Surface *surface)
 {
 	this->surfaces.push_back(surface);
