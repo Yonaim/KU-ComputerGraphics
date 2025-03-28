@@ -22,7 +22,8 @@ class Renderer
 
 	Renderer();
 	~Renderer();
-	void rayTrace();
+	void      rayTrace();
+	glm::vec3 computeBoxFilteredColor(int x, int y);
 };
 
 #endif
