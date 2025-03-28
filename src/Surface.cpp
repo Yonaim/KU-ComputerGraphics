@@ -41,11 +41,11 @@ glm::vec3 Surface::shade(hitRecord                 *hit,
 	std::vector<PointLight *>::const_iterator it       = lights.begin();
 	std::shared_ptr<Material>                 material = hit->material;
 
-	color += material->calculateAmbient(glm::vec3(1.0f, 1.0f, 1.0f)); // ambient light
+	color += material->calculateAmbient(
+		glm::vec3(1.0f, 1.0f, 1.0f)); // ambient light
 	while (it < lights.end())
 	{
 		glm::vec3 l = glm::normalize((*it)->pos - hit->point); // shadow ray
-
 
 		glm::vec3 diffuse  = material->calculateDiffuse((*it)->color, n, l);
 		glm::vec3 specular = material->calculateSpecular((*it)->color, n, l, v);

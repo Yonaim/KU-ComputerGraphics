@@ -3,8 +3,8 @@
 #include "settings.h"
 #include "Renderer.hpp"
 
-void renderFrameLoop(Renderer &renderer, GLFWwindow *window);
-void init_scene(Scene &scene);
+void        renderFrameLoop(Renderer &renderer, GLFWwindow *window);
+void        init_scene(Scene &scene);
 GLFWwindow *init_glfw();
 
 int main()

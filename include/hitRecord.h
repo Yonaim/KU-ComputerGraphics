@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include "Material.hpp"
 #include "Ray.hpp"
+
 class Surface;
 
 typedef struct
