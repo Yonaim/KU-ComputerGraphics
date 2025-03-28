@@ -29,7 +29,7 @@ std::vector<PointLight *> &Scene::getLights()
 }
 
 // find the hitted surface with smallest t
-glm::vec3 Scene::trace(Ray &ray, float tMin, float tMax) const
+glm::vec3 Scene::trace(Ray &ray, float tMin, float tMax)
 {
 	std::vector<Surface *>::const_iterator it = this->surfaces.begin();
 	hitRecord                              hit_closest;
@@ -50,7 +50,7 @@ glm::vec3 Scene::trace(Ray &ray, float tMin, float tMax) const
 	}
 
 	if (hit_closest.surface != NULL)
-		return (glm::vec3(1.0f, 1.0f, 1.0f));
+		return (hit_closest.surface->shade(&hit_closest, this->lights));
 	else
 		return (glm::vec3(0, 0, 0));
 }
