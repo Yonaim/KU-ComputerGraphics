@@ -6,6 +6,24 @@ Scene::Scene()
 
 Scene::~Scene()
 {
+	// free allocated memory for surfaces
+	// because the materials are shared pointer, don't need to free them
+	std::vector<Surface *>::const_iterator it = this->surfaces.begin();
+	while (it < this->surfaces.end())
+	{
+		delete (*it);
+		it++;
+	}
+	this->surfaces.clear();
+
+	// free allocated memory for lights
+	std::vector<PointLight *>::const_iterator it2 = this->lights.begin();
+	while (it2 < this->lights.end())
+	{
+		delete (*it2);
+		it2++;
+	}
+	this->lights.clear();
 }
 
 void Scene::addSurface(Surface *surface)
