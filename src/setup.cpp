@@ -64,19 +64,20 @@ void init_surfaces(std::vector<Surface *> &surfaces)
 	– Sphere S3 : ka = (0, 0,
 		0.2), kd = (0, 0, 1), ks = (0, 0, 0), with specular power 0.
 	*/
-	Material *m_p = new Material(glm::vec3(0.2, 0.2, 0.2), glm::vec3(1, 1, 1),
-								glm::vec3(0, 0, 0), 0);
-	Material *m_s1 = new Material(glm::vec3(0.2, 0, 0), glm::vec3(1, 0, 0),
-								glm::vec3(0, 0, 0), 0);
-	Material *m_s2 = new Material(glm::vec3(0, 0.2, 0), glm::vec3(0, 0.5, 0),
-								glm::vec3(0.5, 0.5, 0.5), 32);
-	Material *m_s3 = new Material(glm::vec3(0, 0, 0.2), glm::vec3(0, 0, 1),
-								glm::vec3(0, 0, 0), 0);
-	
-	Plane	*plane = new Plane(glm::vec3(0, -2, 0), m_p, glm::vec3(0, 1, 0));
-	Sphere	*sphere1 = new Sphere(glm::vec3(-4, 0, -7), m_s1, 1);
-	Sphere	*sphere2 = new Sphere(glm::vec3(0, 0, -7), m_s2, 2);
-	Sphere	*sphere3 = new Sphere(glm::vec3(4, 0, -7), m_s3, 1);
+	std::shared_ptr<Material> m_p(new Material(
+		glm::vec3(0.2, 0.2, 0.2), glm::vec3(1, 1, 1), glm::vec3(0, 0, 0), 0));
+	std::shared_ptr<Material> m_s1(new Material(
+		glm::vec3(0.2, 0, 0), glm::vec3(1, 0, 0), glm::vec3(0, 0, 0), 0));
+	std::shared_ptr<Material> m_s2(new Material(glm::vec3(0, 0.2, 0),
+												glm::vec3(0, 0.5, 0),
+												glm::vec3(0.5, 0.5, 0.5), 32));
+	std::shared_ptr<Material> m_s3(new Material(
+		glm::vec3(0, 0, 0.2), glm::vec3(0, 0, 1), glm::vec3(0, 0, 0), 0));
+
+	Plane  *plane   = new Plane(glm::vec3(0, -2, 0), m_p, glm::vec3(0, 1, 0));
+	Sphere *sphere1 = new Sphere(glm::vec3(-4, 0, -7), m_s1, 1);
+	Sphere *sphere2 = new Sphere(glm::vec3(0, 0, -7), m_s2, 2);
+	Sphere *sphere3 = new Sphere(glm::vec3(4, 0, -7), m_s3, 1);
 
 	/*
 	The scene consists of the following four objects:
@@ -91,10 +92,23 @@ void init_surfaces(std::vector<Surface *> &surfaces)
 	surfaces.push_back(sphere3);
 }
 
+void init_point_lights(std::vector<PointLight *> &lights)
+{
+	/*
+	Assume a single point light source at (−4, 4, −3), emitting white light with
+	unit intensity and no falloff.
+	*/
+	PointLight *light
+		= new PointLight(glm::vec3(-4, 4, -3), glm::vec3(1, 1, 1), 1);
+	lights.push_back(light);
+}
+
 void init_scene(Scene &scene)
 {
 	init_camera(scene.getCamera());
 	init_surfaces(scene.getSurfaces());
+	init_point_lights(scene.getLights());
+	scene.setBackgroundColor(glm::vec3(0, 0, 0));
 }
 
 GLFWwindow *init_glfw()
