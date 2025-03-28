@@ -14,6 +14,17 @@ Renderer::~Renderer()
 {
 }
 
+// Perform gamma correction with γ = 2.2
+static void	linear_to_gamma(glm::vec3 &color)
+{
+	color.x = pow(color.x, 1.0f / 2.2f);
+	color.y = pow(color.y, 1.0f / 2.2f);
+	color.z = pow(color.z, 1.0f / 2.2f);
+	glm::clamp(color.x, 0.0f, 1.0f);
+	glm::clamp(color.y, 0.0f, 1.0f);
+	glm::clamp(color.z, 0.0f, 1.0f);
+}
+
 /*
 – Write a ray tracer which generates eye rays through the center
 of each pixel
@@ -40,6 +51,7 @@ void Renderer::rayTrace()
 		{
 			ray   = camera.getRay(x, y);
 			color = scene.trace(ray, 0, FLT_INF);
+			linear_to_gamma(color);
 
 			int idx         = (y * SCR_WIDTH + x) * 3;
 			output[idx]     = (unsigned char)(color.x * 255.0f);
