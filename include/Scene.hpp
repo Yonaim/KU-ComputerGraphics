@@ -22,7 +22,7 @@ class Scene
 	Camera                    &getCamera();
 	std::vector<Surface *>    &getSurfaces();
 	std::vector<PointLight *> &getLights();
-	glm::vec3                  trace(Ray &ray, float tMin, float tMax) const;
+	glm::vec3                  trace(Ray &ray, float tMin, float tMax);
 };
 
 #endif

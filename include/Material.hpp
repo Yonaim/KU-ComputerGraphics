@@ -7,12 +7,12 @@
 class Material
 {
   private:
+  public:
 	glm::vec3 ka;        // ambient
 	glm::vec3 kd;        // diffuse
 	glm::vec3 ks;        // specular
 	float     shininess; // specular power
-
-  public:
+	
 	Material(/* args */);
 	Material(glm::vec3 ka, glm::vec3 kd, glm::vec3 ks, float shininess);
 	~Material();
