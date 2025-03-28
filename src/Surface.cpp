@@ -5,8 +5,8 @@ Surface::Surface(/* args */)
 {
 }
 
-Surface::Surface(glm::vec3 pos, Material *material)
-	: pos(pos), material(material)
+Surface::Surface(glm::vec3 pos, std::shared_ptr<Material> material)
+	: pos(pos), material(std::move(material))
 {
 }
 
@@ -34,7 +34,7 @@ glm::vec3 Surface::shade(hitRecord                 *hit,
 	glm::vec3 v     = glm::normalize(hit->ray.direction) * -1.0f;
 	glm::vec3 n     = glm::normalize(hit->normal);
 	std::vector<PointLight *>::const_iterator it       = lights.begin();
-	Material                                 *material = hit->material;
+	std::shared_ptr<Material>                material = hit->material;
 
 	while (it < lights.end())
 	{
@@ -49,9 +49,9 @@ glm::vec3 Surface::shade(hitRecord                 *hit,
 
 		// specular
 		glm::vec3 h = glm::normalize(l + v);
-		glm::vec3 specular = material->ks * (*it)->color
-								* glm::pow(glm::max(glm::dot(n, h), 0.0f),
-											material->shininess);
+		glm::vec3 specular
+			= material->ks * (*it)->color
+			  * glm::pow(glm::max(glm::dot(n, h), 0.0f), material->shininess);
 
 		color += ambient + diffuse + specular;
 		it++;

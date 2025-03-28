@@ -8,7 +8,8 @@ Plane::Plane()
 {
 }
 
-Plane::Plane(glm::vec3 pos, Material *material, glm::vec3 normal)
+Plane::Plane(glm::vec3 pos, std::shared_ptr<Material> material,
+			 glm::vec3 normal)
 	: Surface(pos, material)
 {
 	this->normal = glm::normalize(normal);
@@ -28,10 +29,10 @@ void Plane::setNormal(glm::vec3 normal)
 bool Plane::intersect(hitRecord *hit, Ray &ray, float tMin, float tMax) const
 {
 	/*
-		Equation in the plane: n * (P - P0) = 0
-		Ray's equation: R(t) = O + t * d
+		Equation of the plane: n * (P - P0) = 0
+		Equation of the ray: R(t) = O + t * d
 
-		Substituting Ray's equation into the plane equation:
+		Inserting the ray equation into the plane equation, we get:
 		n * (O + t * d - P0) = 0
 		-> n * (O - P0) + t * (n * d) = 0
 		-> t = - (n * (O - P0)) / (n * d)
@@ -49,11 +50,11 @@ bool Plane::intersect(hitRecord *hit, Ray &ray, float tMin, float tMax) const
 		t     = numer / denom;
 		if (tMin < t && t < tMax)
 		{
-			hit->t       = t;
-			hit->surface = (Surface *)this;
-			hit->point   = ray.pointAt(t);
-			hit->normal  = this->normal;
-			hit->ray     = ray;
+			hit->t        = t;
+			hit->surface  = (Surface *)this;
+			hit->point    = ray.pointAt(t);
+			hit->normal   = this->normal;
+			hit->ray      = ray;
 			hit->material = this->material;
 			return (true);
 		}

@@ -8,12 +8,12 @@ class Surface;
 
 typedef struct
 {
-	Surface  *surface;  // the hit surface
-	float     t;        // distance from the ray origin to the hit point
-	glm::vec3 normal;   // normal at the hit point
-	glm::vec3 point;    // hit point
-	Ray       ray;      // the ray that hits the surface
-	Material *material; // the material of the surface
+	Surface  *surface; // the hit surface
+	float     t;       // distance from the ray origin to the hit point
+	glm::vec3 normal;  // normal at the hit point
+	glm::vec3 point;   // hit point
+	Ray       ray;     // the ray that hits the surface
+	std::shared_ptr<Material> material; // material of the surface
 } hitRecord;
 
 #endif
