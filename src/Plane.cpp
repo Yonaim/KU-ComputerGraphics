@@ -23,15 +23,15 @@ void Plane::setNormal(glm::vec3 normal)
 	this->normal = glm::normalize(normal);
 }
 
-// 평면의 식에 ray 대입
-// 만약 n * d = 0일시 ray가 평면과 평행 혹은 평면에 포함
+// Substitute ray in the expression of the plane
+// If n * d = 0, ray is parallel to or contained in the plane
 bool Plane::intersect(hitRecord *hit, Ray &ray, float tMin, float tMax) const
 {
 	/*
-		평면의 방정식: n * (P - P0) = 0
-		Ray의 방정식: R(t) = O + t * d
+		Equation in the plane: n * (P - P0) = 0
+		Ray's equation: R(t) = O + t * d
 
-		Ray의 방정식을 평면 방정식에 대입:
+		Substituting Ray's equation into the plane equation:
 		n * (O + t * d - P0) = 0
 		-> n * (O - P0) + t * (n * d) = 0
 		-> t = - (n * (O - P0)) / (n * d)
@@ -51,7 +51,10 @@ bool Plane::intersect(hitRecord *hit, Ray &ray, float tMin, float tMax) const
 		{
 			hit->t       = t;
 			hit->surface = (Surface *)this;
-			// hit->point = ray.pointAt(t);
+			hit->point   = ray.pointAt(t);
+			hit->normal  = this->normal;
+			hit->ray     = ray;
+			hit->material = this->material;
 			return (true);
 		}
 	}

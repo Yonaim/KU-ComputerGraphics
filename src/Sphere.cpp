@@ -48,20 +48,19 @@ bool Sphere::intersect(hitRecord *hit, Ray &ray, float tMin, float tMax) const
 
 	if (t1 >= tMin && t1 <= tMax)
 	{
-		hit->t       = t1;
-		hit->surface = (Surface *)this;
-		// hit->point = ray.pointAt(hit->t);
-		return (true);
+		hit->t = t1;
+		hit->point = ray.pointAt(t1);
 	}
 	else if (t2 >= tMin && t2 <= tMax)
 	{
-		hit->t       = t2;
-		hit->surface = (Surface *)this;
-		// hit->point = ray.pointAt(hit->t);
-		return (true);
+		hit->t     = t2;
+		hit->point = ray.pointAt(t2);
 	}
 	else
-	{
 		return (false);
-	}
+	hit->surface  = (Surface *)this;
+	hit->normal   = glm::normalize(hit->point - pos);
+	hit->ray      = ray;
+	hit->material = this->material;
+	return (true);
 }
