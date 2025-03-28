@@ -28,6 +28,7 @@ class Camera
 	void setDistance(float distance);
 	void setImagePlane(float left, float right, float top, float bottom);
 	Ray  getRay(int ix, int iy) const;
+	Ray  getUniformSampleRay(int ix, int iy) const;
 };
 
 #endif
