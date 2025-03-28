@@ -56,5 +56,5 @@ glm::vec3 Surface::shade(hitRecord                 *hit,
 		color += ambient + diffuse + specular;
 		it++;
 	}
-	return (color);
+	return (glm::clamp(color, 0.0f, 1.0f));
 }
