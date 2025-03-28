@@ -15,14 +15,14 @@ Renderer::~Renderer()
 }
 
 // Perform gamma correction with γ = 2.2
-static void	linear_to_gamma(glm::vec3 &color)
+static void linear_to_gamma(glm::vec3 &color)
 {
 	color.x = pow(color.x, 1.0f / 2.2f);
 	color.y = pow(color.y, 1.0f / 2.2f);
 	color.z = pow(color.z, 1.0f / 2.2f);
-	glm::clamp(color.x, 0.0f, 1.0f);
-	glm::clamp(color.y, 0.0f, 1.0f);
-	glm::clamp(color.z, 0.0f, 1.0f);
+	color.x = glm::clamp(color.x, 0.0f, 1.0f);
+	color.y = glm::clamp(color.y, 0.0f, 1.0f);
+	color.z = glm::clamp(color.z, 0.0f, 1.0f);
 }
 
 /*
