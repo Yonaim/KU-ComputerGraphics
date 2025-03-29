@@ -4,7 +4,7 @@ Sphere::Sphere()
 {
 }
 
-Sphere::Sphere(glm::vec3 pos, std::shared_ptr<Material> material, float radius)
+Sphere::Sphere(glm::vec3 pos, Material *material, float radius)
 	: Surface(pos, material)
 {
 	this->radius = radius;
@@ -17,10 +17,9 @@ Sphere::~Sphere()
 bool Sphere::intersect(hitRecord *hit, Ray &ray, float tMin, float tMax) const
 {
 	/*
-		Equation of the sphere: (P-C) * (P-C) = r^2
-		Equation of the ray: R(t) = O + t * d
+		구의 방정식: (P - C) * (P - C) = r^2
+		Ray의 방정식: R(t) = O + t * d
 
-		Inserting the ray equation into the sphere equation, we get:
 		((O + t * d) - C) · ((O + t * d) - C) = r^2
 		-> t^2 * (d · d) + 2 * t * (d · (O - C)) + ((O - C) · (O - C) - r^2)
 		= 0
@@ -49,7 +48,7 @@ bool Sphere::intersect(hitRecord *hit, Ray &ray, float tMin, float tMax) const
 
 	if (t1 >= tMin && t1 <= tMax)
 	{
-		hit->t     = t1;
+		hit->t = t1;
 		hit->point = ray.pointAt(t1);
 	}
 	else if (t2 >= tMin && t2 <= tMax)

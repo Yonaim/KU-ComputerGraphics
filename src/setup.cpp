@@ -64,15 +64,14 @@ void init_surfaces(std::vector<Surface *> &surfaces)
 	– Sphere S3 : ka = (0, 0,
 		0.2), kd = (0, 0, 1), ks = (0, 0, 0), with specular power 0.
 	*/
-	std::shared_ptr<Material> m_p(new Material(
-		glm::vec3(0.2, 0.2, 0.2), glm::vec3(1, 1, 1), glm::vec3(0, 0, 0), 0));
-	std::shared_ptr<Material> m_s1(new Material(
-		glm::vec3(0.2, 0, 0), glm::vec3(1, 0, 0), glm::vec3(0, 0, 0), 0));
-	std::shared_ptr<Material> m_s2(new Material(glm::vec3(0, 0.2, 0),
-												glm::vec3(0, 0.5, 0),
-												glm::vec3(0.5, 0.5, 0.5), 32));
-	std::shared_ptr<Material> m_s3(new Material(
-		glm::vec3(0, 0, 0.2), glm::vec3(0, 0, 1), glm::vec3(0, 0, 0), 0));
+	Material *m_p  = new Material(glm::vec3(0.2, 0.2, 0.2), glm::vec3(1, 1, 1),
+								  glm::vec3(0, 0, 0), 0);
+	Material *m_s1 = new Material(glm::vec3(0.2, 0, 0), glm::vec3(1, 0, 0),
+								  glm::vec3(0, 0, 0), 0);
+	Material *m_s2 = new Material(glm::vec3(0, 0.2, 0), glm::vec3(0, 0.5, 0),
+								  glm::vec3(0.5, 0.5, 0.5), 32);
+	Material *m_s3 = new Material(glm::vec3(0, 0, 0.2), glm::vec3(0, 0, 1),
+								  glm::vec3(0, 0, 0), 0);
 
 	Plane  *plane   = new Plane(glm::vec3(0, -2, 0), m_p, glm::vec3(0, 1, 0));
 	Sphere *sphere1 = new Sphere(glm::vec3(-4, 0, -7), m_s1, 1);
