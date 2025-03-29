@@ -76,7 +76,8 @@ Ray Camera::getUniformSampleRay(int ix, int iy) const
 	const float rand_x = random_float(-0.5f, 0.5f);
 	const float rand_y = random_float(-0.5f, 0.5f);
 
-	const glm::vec2 uv  = this->imgPlane.pixelToUV(ix + rand_x, iy + rand_y);
+	const glm::vec2 uv
+		= this->imgPlane.pixelToUV((float)ix + rand_x, (float)iy + rand_y);
 	const glm::vec3 s   = uvToWorld(uv);
 	const Ray       ray = Ray(this->eye, glm::vec3(s - this->eye));
 

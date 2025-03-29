@@ -23,7 +23,7 @@ void ImagePlane::setCoordinates(float left, float right, float top,
 }
 
 // screen space to camera space
-glm::vec2 ImagePlane::pixelToUV(int ix, int iy) const
+glm::vec2 ImagePlane::pixelToUV(float ix, float iy) const
 {
 	/*
 		U: horizontal
