@@ -10,19 +10,19 @@
 class Surface
 {
   protected:
-	glm::vec3                 pos;
-	std::shared_ptr<Material> material;
+	glm::vec3 pos;
+	Material *material; // not a pointer now
 
   public:
 	Surface(/* args */);
-	Surface(glm::vec3 pos, std::shared_ptr<Material> material);
+	Surface(glm::vec3 pos, Material *material);
 	virtual ~Surface();
 
-	std::shared_ptr<Material> getMaterial() const;
-	void                      setPosition(glm::vec3 pos);
-	virtual bool              intersect(hitRecord *hit, Ray &ray, float tMin,
-										float tMax) const;
-	glm::vec3 shade(hitRecord *hit, std::vector<PointLight *> &lights) const;
+	Material    *getMaterial() const;
+	void         setPosition(glm::vec3 pos);
+	virtual bool intersect(hitRecord *hit, Ray &ray, float tMin,
+						   float tMax) const;
+	glm::vec3    shade(hitRecord *hit, std::vector<PointLight *> &lights) const;
 };
 
 #endif

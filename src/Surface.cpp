@@ -5,8 +5,8 @@ Surface::Surface(/* args */)
 {
 }
 
-Surface::Surface(glm::vec3 pos, std::shared_ptr<Material> material)
-	: pos(pos), material(std::move(material))
+Surface::Surface(glm::vec3 pos, Material *material)
+	: pos(pos), material(material)
 {
 }
 
@@ -14,7 +14,7 @@ Surface::~Surface()
 {
 }
 
-std::shared_ptr<Material> Surface::getMaterial() const
+Material *Surface::getMaterial() const
 {
 	return (this->material);
 }
@@ -39,7 +39,7 @@ glm::vec3 Surface::shade(hitRecord                 *hit,
 	glm::vec3 v     = glm::normalize(hit->ray.direction) * -1.0f;
 	glm::vec3 n     = glm::normalize(hit->normal);
 	std::vector<PointLight *>::const_iterator it       = lights.begin();
-	std::shared_ptr<Material>                 material = hit->material;
+	Material                                 *material = hit->material;
 
 	color += material->calculateAmbient(
 		glm::vec3(1.0f, 1.0f, 1.0f)); // ambient light

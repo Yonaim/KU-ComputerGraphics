@@ -12,7 +12,7 @@ class Plane : public Surface
 
   public:
 	Plane();
-	Plane(glm::vec3 pos, std::shared_ptr<Material> material, glm::vec3 normal);
+	Plane(glm::vec3 pos, Material *material, glm::vec3 normal);
 	virtual ~Plane();
 	void         setNormal(glm::vec3 normal);
 	virtual bool intersect(hitRecord *hit, Ray &ray, float tMin,

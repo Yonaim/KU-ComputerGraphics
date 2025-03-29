@@ -7,6 +7,7 @@ void        renderFrameLoop(Renderer &renderer, GLFWwindow *window);
 void        init_scene(Scene &scene);
 GLFWwindow *init_glfw();
 
+// todo: 메모리 회수 작업
 int main()
 {
 	Renderer    renderer;
