@@ -12,7 +12,7 @@ class Sphere : public Surface
 
   public:
 	Sphere();
-	Sphere(glm::vec3 pos, std::shared_ptr<Material> material, float radius);
+	Sphere(glm::vec3 pos, Material *material, float radius);
 	virtual ~Sphere();
 	virtual bool intersect(hitRecord *hit, Ray &ray, float tMin,
 						   float tMax) const override;
