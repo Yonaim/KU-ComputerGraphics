@@ -15,7 +15,7 @@ Renderer::~Renderer()
 }
 
 // Perform gamma correction with γ = 2.2
-static void linear_to_gamma(glm::vec3 &color)
+static glm::vec3 linear_to_gamma(glm::vec3 color)
 {
 	color.x = pow(color.x, 1.0f / 2.2f);
 	color.y = pow(color.y, 1.0f / 2.2f);
@@ -23,6 +23,24 @@ static void linear_to_gamma(glm::vec3 &color)
 	color.x = glm::clamp(color.x, 0.0f, 1.0f);
 	color.y = glm::clamp(color.y, 0.0f, 1.0f);
 	color.z = glm::clamp(color.z, 0.0f, 1.0f);
+	return (color);
+}
+
+// Compute the color of a pixel using box filtering (average of N_SAMPLE rays)
+glm::vec3 Renderer::computeBoxFilteredColor(int x, int y)
+{
+	glm::vec3 color = glm::vec3(0.0f, 0.0f, 0.0f);
+	Ray       ray;
+	Scene    &scene = this->scene;
+
+	for (int i = 0; i < N_SAMPLE; i++)
+	{
+		ray = scene.getCamera().getUniformSampleRay(x, y);
+		color += scene.trace(ray, 0, FLT_INF);
+	}
+	color /= float(N_SAMPLE);
+	
+	return (linear_to_gamma(color));
 }
 
 /*
@@ -49,9 +67,7 @@ void Renderer::rayTrace()
 #endif
 		for (int x = 0; x < SCR_WIDTH; x++)
 		{
-			ray   = camera.getRay(x, y);
-			color = scene.trace(ray, 0, FLT_INF);
-			linear_to_gamma(color);
+			color = computeBoxFilteredColor(x, y);
 
 			int idx         = (y * SCR_WIDTH + x) * 3;
 			output[idx]     = (unsigned char)(color.x * 255.0f);

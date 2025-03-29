@@ -29,6 +29,7 @@ void renderFrameLoop(Renderer &renderer, GLFWwindow *window)
 {
 	bool needRecompute = true;
 
+	srand(time(NULL));
 	while (!glfwWindowShouldClose(window))
 	{
 		glClear(GL_COLOR_BUFFER_BIT);

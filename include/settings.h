@@ -10,6 +10,9 @@
 #define SCR_WIDTH  512
 #define SCR_HEIGHT 512
 
+// number of samples per pixel
+#define N_SAMPLE 64
+
 void errorCallback(int error, const char *description);
 void keyCallback(GLFWwindow *window, int key, int scancode, int action,
 				 int mods);
